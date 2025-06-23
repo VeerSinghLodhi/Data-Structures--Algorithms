@@ -70,6 +70,6 @@ int main(){
 
     graph.printAdjancencyList();
     cout<<"\n<----- BFS Traversal ----->"<<endl;
-    graph.getBFS(4);
+    graph.getBFS(1);
 
 }
