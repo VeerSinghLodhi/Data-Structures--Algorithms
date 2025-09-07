@@ -28,12 +28,12 @@ void addNewProduct(){
             scanf("%d",&c);
             if(c==1){
                 ptr->next=head;
-                head->next=ptr;
+                head=ptr;
             }else if(c==2){
                 int no,ans=0;
                 printf("\nEnter Product no. after which you want to insert new record : ");
                 scanf("%d",&no);
-                struct Product *temp,*prev;
+                struct Product *temp,*prev=head;
                 for(temp=head;(temp);temp=temp->next){
                     if(temp->pno==no){
                         ptr->next=prev->next;
@@ -53,6 +53,7 @@ void addNewProduct(){
                     p=temp;
                 }
                 p->next=ptr;
+                ptr->next=NULL;
                 printf("\nNew Product Added");
             }
         }
@@ -60,11 +61,46 @@ void addNewProduct(){
 }
 
 void showAllProducts(){
-
+    if(head==NULL){
+        printf("\nNo product found!!");
+        return;
+    }
+    struct Product *temp;
+    for(temp=head;(temp);temp=temp->next){
+        printf("\nProduct no. %d",temp->pno);
+        printf("\nProduct name %s",temp->name);
+        printf("\n=========================");
+    }
 }
 
 void delProduct(){
-
+    if(head==NULL){
+        printf("\nNo Product found!!");
+        return;
+    }
+    struct Product *temp,*prev;
+    int no,ans=0;
+    printf("\nEnter product no to delete : ");
+    scanf("%d",&no);
+    for(temp=head;(temp);temp=temp->next){
+        if(temp->pno==no){
+            if(temp==head){
+                head=head->next;
+            }else if(temp->next==NULL){
+                prev->next=NULL;
+            }else{
+                prev->next=temp->next;
+            }
+            free(temp);
+            printf("\nProduct Deleted!");
+            ans=1;
+            break;
+        }
+        prev=temp;
+    }
+    if(ans==0){
+        printf("\nProduct does not exist!");
+    }
 }
 void main(){
     head=NULL;
